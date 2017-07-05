@@ -109,6 +109,7 @@ done
     fi
 
 export TERM=xterm
+chown -R www-data:www-data /var/www/html/wordpress
 a2ensite 000-default.conf
 /etc/init.d/apache2 restart
 tailf /root/start.sh
