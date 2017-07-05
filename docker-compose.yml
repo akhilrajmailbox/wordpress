@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+  wordpress-service:
+    depends_on:
+     - wp-mysql-servce
+    container_name: wordpress-server
+    image: wordpress-server
+#    build:
+#      context: wordpress-server
+#      dockerfile: Dockerfile
+    hostname: wordpress-server
+    restart: always
+    env_file: .env
+    volumes:
+     - $PWD/wordpress/wordpress:/var/www/html:rw
+     - $PWD/wordpress/apache2:/etc/apache2:rw
+    ports:
+     - $PORT_NO:80
+    tty: true
+
+
+  wp-mysql-servce:
+    container_name: wordpress-mysql
+    image: mysql:5.5
+    hostname: wordpress-mysql
+    restart: always
+    env_file: .env
+    volumes:
+     - $PWD/wordpress/mysql-data:/var/lib/mysql:rw
+    tty: true

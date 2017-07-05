@@ -1,0 +1,10 @@
+
+# for remote database by docker run command
+# docker run -v /path/to/folder:/var/www/html/ --env-file env-file -it wordpress-server /bin/bash
+
+# mandatory docker variable
+
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wordpress
+MYSQL_PASSWORD=wordpress
+MYSQL_HOST=192.168.1.106
