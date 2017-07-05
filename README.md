@@ -11,7 +11,7 @@ docker-compose -f docker-compose.yml up
 docker run command ::
 
 ```
-docker run --env-file env-file -v /path/to/folder-1:/etc/apache2 -v /path/to/folder-2:/var/www/html -it --name <<container-name>> --hostname <<hostname>> akhilrajmailbox/wordpress-server:latest
+docker run --env-file env-file -v /path/to/folder-1:/etc/apache2 -v /path/to/folder-2:/var/www/html -p <<host port>>:80 -it --name <<container-name>> --hostname <<hostname>> akhilrajmailbox/wordpress-server:latest
 
 ```
 
