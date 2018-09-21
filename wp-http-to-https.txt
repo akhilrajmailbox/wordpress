@@ -1,0 +1,44 @@
+    1  cd /opt/
+    2  mkdir key
+    3  cd bitnami/apache2/conf/
+    4  cp -r server.crt  server.key server.csr /opt/key/
+    5  ls /opt/key/
+    6  cp -r /home/bitnami/folder-contains-key-and-cert .
+    7  nano bitnami/bitnami.conf 
+
+#SSLCertificateFile "/opt/bitnami/apache2/conf/folder-contains-key-and-cert/server.crt"
+#SSLCertificateKeyFile "/opt/bitnami/apache2/conf/folder-contains-key-and-cert/server.key"
+
+    8  find /opt/ -name wp-config.php
+    9  nano /opt/bitnami/apps/wordpress/htdocs/wp-config.php 
+#(change http to https)
+
+define('WP_SITEURL','https://' . $_SERVER['HTTP_HOST'] . '/');
+define('WP_HOME','https://' . $_SERVER['HTTP_HOST'] . '/');
+
+    10 cd /opt/bitnami/apps/wordpress/htdocs/
+    11  ls
+    12 nano .htaccess
+#(update the file)
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+    13 sudo /opt/bitnami/ctlscript.sh restart apache
+    14  sudo /opt/bitnami/ctlscript.sh status
+
+
+
+links ::
+
+https://websitesetup.org/http-to-https-wordpress/
+https://docs.bitnami.com/aws/apps/wordpress-pro/administration/enable-https-ssl-nginx/
